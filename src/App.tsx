@@ -1,6 +1,7 @@
-import React,{ useState } from 'react';
+import React, { useState } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import { SortType } from './SortType';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -15,13 +16,10 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-enum SortType {
-  Alphabetically = 'alphabetically',
-  ByLength = 'by-length',
-}
+
 
 interface SortOptions {
-  sortField: SortType | '';
+  sortField: SortType;
   isReversed: boolean;
 }
 
@@ -57,7 +55,7 @@ function getSortedGoods(
 }
 
 export const App: React.FC = () => {
-  const [sortField, setSortField] = useState<SortType | ''>('');
+  const [sortField, setSortField] = useState<SortType>(SortType.None);
   const [isReversed, setIsReversed] = useState(false);
   const sortedGoods = getSortedGoods(goodsFromServer, {
     sortField,
@@ -98,7 +96,7 @@ export const App: React.FC = () => {
             type="button"
             className="button is-danger is-light"
             onClick={() => {
-              setSortField('');
+              setSortField(SortType.None);
               setIsReversed(false);
             }}
           >
